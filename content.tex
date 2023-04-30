@@ -1519,6 +1519,16 @@ A stable matching can always be found, and can be found using the Gale-Shapley a
 The subset sum problem is to determine if there is a subset $\tilde X$ of a multiset of integers $X$, such that $\sum \tilde X = T$. The problem is NP-hard when the possible sums are unbounded. It can be solved by keeping track of all possible subset sums of the first $k$ elements. To find the elements that make up the sum, a directed graph can be used with vertices $(k, t)$, which indicates that the first $k$ elements contain a subset sum of $t$. Then there are edges from $(k, t)$ to $(k + 1, t)$ and $(k + 1, t + x_{k + 1})$. A path from $(0, 0)$ to $(n, T)$ can be found with DFS/BFS.
 \code{src/misc/subsetsum.cc}
 
+
+
+\subsection{Longest increasing subsequence}
+
+\code{src/misc/longestincreasing.cc}
+
+
+
+
+
 \section{Pre-competition checklist}
 
 \subsubsection{Before competition}
@@ -1549,6 +1559,7 @@ The subset sum problem is to determine if there is a subset $\tilde X$ of a mult
         \item Difference in time with more/less correct results?
         \item Is \texttt{inline} enabled?
         \item Are compile errors given? Are they shown in the web interface?
+        \item Is \texttt{cerr} considered as output?
     \end{itemize}
     \item Which \texttt{C++} version is used?
     \begin{itemize}
