@@ -1,53 +1,32 @@
-const ld EPS = 1e-12;
-typedef vector<ld> vd;
-typedef vector<vd> vvd;
-
-// Determine solution of a linear system of equations
-// of the form Ax = b, where the input is the matrix A
-// with an extra column that is b. Returns empty vector
-// when there is no solution or for infinite number of
-// solutions. Modifies input matrix!
-vd gauss(vvd &a) {
-    ll n = sz(a), m = sz(a[0]) - 1;
-    vi w(m, -1);
-    // Current column and row
-    ll c = 0, r = 0;
-    // Result vector
-    vd res(n, 0.0);
-    while (c < m && r < n) {
-        ll s = r;
-        rep(i, r, n)
-            if (abs(a[i][c]) > abs(a[s][c]))
-                s = i;
-        if (abs(a[s][c]) < EPS) {
-            c++;
-            continue;
-        }
-        rep(i, c, m + 1)
-            swap(a[s][i], a[r][i]);
-        w[c] = r;
-        REP(i, n) {
-            if (i != r) {
-                ld cur = a[i][c] / a[r][c];
-                rep(j, c, m + 1)
-                    a[i][j] -= a[r][j] * cur;
+// Solve a linear system of equations Ax = b. If there
+// no or multiple solutions, an empty vector is
+// returned. The input matrix is modified!
+vd linsys(vvd &a, const vd &b) {
+    // Put vector b on the right side of matrix A
+    REP(i, sz(b))
+        a[i].pb(b[i]);
+    gauss(a);
+    // No solutions:
+    REP(i, sz(a)) {
+        bool allZero = true;
+        REP(j, sz(a[i]) - 1)
+            if (abs(a[i][j]) > EPS) {
+                allZero = false;
+                break;
             }
-        }
-        c++, r++;
-    }
-    REP(i, m)
-        if (w[i] != -1)
-            res[i] = a[w[i]][m] / a[w[i]][i];
-    REP(i, n) {
-        ld sm = 0;
-        REP(j, m)
-            sm += res[j] * a[i][j];
-        if (abs(sm - a[i][m]) > EPS)
+        if (allZero && abs(a[i].back()) > EPS)
             return {};
     }
-    // To get one of the solutions, remove this loop:
-    REP(i, m)
-        if (w[i] == -1)
+    // Multiple solutions: (independent coordinates can
+    // still be found)
+    if (sz(a) < sz(a[0]) - 1)
+        return {};
+    REP(i, sz(a[0]) - 1)
+        if (abs(a[i][i] - 1.0) > EPS)
             return {};
-    return res;
+    // Return right column (modified b)
+    vd out;
+    REP(i, sz(a))
+        out.pb(a[i].back());
+    return out;
 }

@@ -1,0 +1,1 @@
+This folder contains all source code files. All source code lines should be at most 55 characters long and you should use a tab size of 4!
