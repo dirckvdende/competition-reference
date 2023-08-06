@@ -9,5 +9,5 @@ bool hasCycle(const vector<vii> &G) {
             dsu.combine(i, e.x), C--;
         E++;
     }
-    return E + C != sz(G);
+    return E / 2 + C != sz(G);
 }
