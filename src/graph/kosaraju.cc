@@ -1,43 +1,38 @@
-// Visits a node and then its neighbours, given the
-// out-list, L and done
-void visit(const vvi &G, vi &L, vi &done, ll i) {
-    if (done[i])
-        return;
-    done[i] = 1;
-    for (ll e : G[i])
-        if (!done[e])
-            visit(G, L, done, e);
-    L.pb(i);
-}
-
-// Assign a node to a component
-void assign(const vvi &Gr, vi &comp, ll i, ll root) {
-    if (comp[i] != -1)
-        return;
-    comp[i] = root;
-    for (ll e : Gr[i])
-        assign(Gr, comp, e, root);
-}
-
 // The graph G is represented as adjacency lists
 vvi components(const vvi &G) {
     // Construct reverse graph (for in-neighbours)
     vvi Gr(sz(G));
     REP(i, sz(G)) for (ll e : G[i])
         Gr[e].pb(i);
-    vi done(sz(G), 0);
+    vector<bool> done(sz(G), false);
     vi L;
-    REP(i, sz(G))
-        visit(G, L, done, i);
-    reverse(all(L));
+    function<void(ll)> visit = [&](ll i) {
+        if (done[i])
+            return;
+        done[i] = true;
+        for (ll e : G[i])
+            visit(e);
+        L.pb(i);
+    };
     // Component represented by root vertex
     vi comp(sz(G), -1);
+    function<void(ll, ll)> assign = [&](ll i, ll root) {
+        if (comp[i] != -1)
+            return;
+        comp[i] = root;
+        for (ll e : Gr[i])
+            assign(e, root);
+    };
     REP(i, sz(G))
-        assign(Gr, comp, L[i], L[i]);
-    // Construct components
+        visit(i);
+    reverse(all(L));
+    REP(i, sz(L))
+        assign(L[i], L[i]);
+    // Construct component lists
     vvi compList(sz(G));
     REP(i, sz(G))
         compList[comp[i]].pb(i);
+    // Remove empty components
     vvi out;
     for (const vi &l : compList)
         if (!l.empty())
