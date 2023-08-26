@@ -1,25 +1,41 @@
-// Disjoint Set Union structure, is initialized as n
-// disjoint singletons. Implements combine and find
-// operations
+// A disjoint union data structure, initialized as
+// singletons. The structure also keeps track of set
+// sizes and set sums. The values of all elements are
+// initialized at 0
 struct DisjointUnion {
-    // Stores pointer to parent in the tree, or -1 if
-    // the current node is the top node
-    // (representative)
-    vi prev;
-    DisjointUnion(ll n) : prev(vi(n, -1)) { }
+    // Parent node, sum of nodes, number of nodes
+    vi prev, sums, sizes;
+    DisjointUnion(ll n) : prev(n, -1), sums(n, 0),
+    sizes(n, 1) { }
+    // Find a representative of the 
     ll find(ll x) {
         if (prev[x] < 0)
             return x;
-        // This is an optimization to make find faster
-        // on consecutive runs
         return prev[x] = find(prev[x]);
     }
+    // Combine two sets, the root of the largest set
+    // becomes the new root
     void combine(ll x, ll y) {
         if ((x = find(x)) == (y = find(y)))
             return;
-        if (prev[x] > prev[y])
+        if (sizes[x] < sizes[y])
             swap(x, y);
-        prev[x] += prev[y];
         prev[y] = x;
+        sizes[x] += sizes[y];
+        sums[x] += sums[y];
+    }
+    // Get the size of the set that x is contained in
+    ll size(ll x) {
+        return sizes[find(x)];
+    }
+    // Update the value of the set that x is contained
+    // in by adding v
+    void update(ll x, ll v) {
+        sums[find(x)] += v;
+    }
+    // Get the sum of the values of elements of the set
+    // that x is contained in
+    ll sum(ll x) {
+        return sums[find(x)];
     }
 };
