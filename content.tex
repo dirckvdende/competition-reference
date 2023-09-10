@@ -53,6 +53,7 @@ alias gg="g++ -x c++ -std=c++20 -Wall -Wextra
     \item Does the problem require a lot of memory?
     \item It there is a lot of IO: Use \texttt{cin.tie(NULL)} and flush output manually, don't use \texttt{endl}.
     \item Can precision be influenced by transformation function? i.e. $\log$, $\exp$, etc.
+    \item Does output have to be given modulo $M$?
 \end{itemize}
 
 \subsubsection{Problem solving strategies}
@@ -173,8 +174,11 @@ The number of primes $\pi(n)$ smaller than or equal to $n$ has the property
     \Rightarrow a^c \equiv a^d \mod n
 \end{align*}
 
-\subsubsection{Modulo power $\mathcal O(\log p)$}
+\subsubsection{Modulo multiplication $\mathcal O(\log y)$}
 \code{src/math/modmul.cc}
+
+\subsubsection{Modulo power $\mathcal O(\log p)$}
+\code{src/math/modpow.cc}
 
 \subsubsection{Equal modulo}
 \code{src/math/modeq.cc}
@@ -185,19 +189,12 @@ The Chinese remainder theorem states that for any $n, m > 1$ coprime and a numbe
     x &\equiv a \mod n, \\
     x &\equiv b \mod m.
 \end{align*}
-The solution can be determined using the extended Euclidean algorithm.
+The solution $x$ can be determined using the extended Euclidean algorithm.
 \code{src/math/crt.cc}
 
 \subsubsection{Inverse elements}
-The inverse of an integer $x$ modulo $n$ can be found using the extended Euclidean algorithm. An inverse exists if and only if $\text{gcd}(x, n) = 1$. Finding a solution $x$ to the system
-\begin{align*}
-    a\cdot x \equiv b\mod n
-\end{align*}
-can be found by applying the extended Euclidean algorithm and finding $x'$ and $y'$ such that
-\begin{align*}
-    a\cdot x' + n \cdot y' = \text{gcd}(a, n).
-\end{align*}
-Then we have $x = x'\cdot \frac{b}{\text{gcd}(a, n)}$. If the given fraction is not an integer, the inverse does not exist.
+The inverse of an integer $a$ modulo $n$ can be found using the extended Euclidean algorithm. An inverse exists if and only if $\text{gcd}(a, n) = 1$. Likewise the system $a\cdot x \equiv b \mod n$ can be solved if $\text{gcd}(a, n)$ divides b.
+\code{src/math/modsys.cc}
 
 
 
@@ -393,14 +390,17 @@ Given a finite set of points, their convex hull is a convex polygon with vertice
 
 \subsection{Matrices}
 
+\subsubsection{Gaussian elimination $\mathcal O(nm\min\{n,m\})$}
+Gaussian elimination is used to reduce a matrix to reduced row echelon form. This form is useful for calculating the determinant, finding the inverse, etc.
+\code{src/math/gauss.cc}
+
 \subsubsection{Determinant of a matrix $\mathcal{O}(n^3)$}
 Defined recursively as $|A| = a_{11}$ if $A \in \text{Mat}(1 \times 1)$, and
 for \textit{any} $j$ and $A \in \text{Mat}(n \times n)$:
 \begin{align*}
     |A| := \sum_{i=1}^n (-1)^{i+j} a_{ij} \cdot |\tilde A_{ij}|.
 \end{align*}
-where $\tilde A_{ij}$ is the matrix $A$ with row $i$ and column $j$ removed.
-\code{src/math/detfast.cc}
+where $\tilde A_{ij}$ is the matrix $A$ with row $i$ and column $j$ removed. The determinant can be determined more quickly by reducing the matrix to reduced row-echelon form and keeping track of row multiplications (see above).
 
 \subsubsection{Multiplying two matrices $\mathcal O(Nnm)$}
 Multiplication of matrices $A \in \text{Mat}(n \times N)$ and $B \in \text{Mat}(N \times m)$ is defined as
@@ -846,7 +846,7 @@ The disjoint-set structure is used to represent a partition of dataset. It suppo
     \end{tikzpicture}
 \end{figure}
 \vspace{-0.3cm}
-The implementation uses a list of numbers $\{0, \dots, n - 1\}$. These can then be used as indices of more complex data. The unions are represented as rooted trees, where every node points to its representative. The $\alpha$ in the complexities above is a very slow growing function.
+The implementation uses a list of numbers $\{0, \dots, n - 1\}$. These can then be used as indices of more complex data. The unions are represented as rooted trees, where every node points to its representative. The $\alpha$ in the complexities above is a very slow growing function. The implementation below is an expanded version of the basic DSU data structure.
 \code{src/datastr/dsu.cc}
 
 

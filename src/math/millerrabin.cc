@@ -9,12 +9,13 @@ bool isPrime(ll n) {
     while (d % 2 == 0)
         d /= 2, s++;
     // This list needs to be extended for numbers >2^64
-    for (ll a : {2, 3, 7, 11, 13, 17, 19, 23, 29, 31,
-    37}) {
-        if (n == a)
+    for (ll a : {2, 3, 5, 7, 11, 13, 17, 19, 23, 29,
+    31, 37}) {
+        if (a >= n - 1 || a > 2 * log(n) * log(n))
             return true;
         ll x = modPower(a, d, n);
         REP(i, s) {
+            // For large n, use modMul
             ll y = (x * x) % n;
             if (y == 1 && x != 1 && x != n - 1)
                 return false;
