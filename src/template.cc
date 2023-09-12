@@ -25,8 +25,7 @@ typedef vector<ii> vii;
 template <class T> ostream &operator<<(ostream &os,
 const vector<T> &v) {
     os << '[';
-    for (const T &i : v)
-        os << i << ", ";
+    for (const T &i : v) os << i << ", ";
     return os << ']' << endl;
 }
 template <class T, class S> ostream &operator<<(ostream
@@ -35,7 +34,6 @@ template <class T, class S> ostream &operator<<(ostream
 }
 
 void run() {
-    // Solution...
 }
 
 int main() {

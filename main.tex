@@ -1,6 +1,8 @@
 
 \documentclass[dvipsnames]{article}
 
+\input{config}
+
 \usepackage{amsfonts}
 \usepackage{amsmath}
 \usepackage{amssymb}
@@ -76,7 +78,7 @@
 
 \setlength{\headheight}{15pt}
 \pagestyle{fancyplain}
-\lhead{Reference Document - \input{author.tex}}
+\lhead{\universityname\ --\ \doctitle}
 \chead{}
 \rhead{Page \thepage/\pageref{LastPage}}
 \lfoot{}
@@ -126,15 +128,15 @@
 
 \begin{center}
 
-    {\bfseries \fontsize{19}{23}\selectfont Reference Document}
+    {\bfseries \fontsize{19}{23}\selectfont \doctitle}
     
     \vspace{0pt}
     
-    \textit{\input{author.tex}}
+    \textit{\authorname \\ \teamname}
 
     \begin{figure}[H]
     \centering
-    \includegraphics[width=100pt]{logo.png}
+    \includegraphics[height=100pt]{logo.png}
     \label{fig:logo}
 \end{figure}
 \end{center}
