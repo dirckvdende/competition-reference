@@ -16,7 +16,8 @@ vvi components(const vvi &G) {
     };
     // Component represented by root vertex
     vi comp(sz(G), -1);
-    function<void(ll, ll)> assign = [&](ll i, ll root) {
+    function<void(ll, ll)> assign = [&](ll i, ll root)
+    {
         if (comp[i] != -1)
             return;
         comp[i] = root;
