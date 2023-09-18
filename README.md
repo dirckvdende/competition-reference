@@ -11,4 +11,8 @@ This document contains useful algorithms to use during a programming competition
 - Will you use the same version of C++? Or use C++ at all?
 You may need to edit the reference document yourself accordingly!
 
-Note that you may need to install extra LaTeX packages when generating the file yourself. The `minted` package is required.
+## How to compile and customize
+
+The reference document can be compiled with LaTeX from the `main.tex` file. Note that you may need to install extra LaTeX packages when generating the file yourself. The `minted` package is required.
+
+To modify the names and other specific information, edit the `config.tex` file. The logo displayed on the front page can be changed by changing the `logo.png` file. If you want to change the content of the reference document, change the `content.tex` file, which contains most of the text in the document. The `main.tex` file contains package information, configurations, and the front page content.
