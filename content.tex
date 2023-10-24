@@ -10,7 +10,7 @@ alias gg="g++ -x c++ -std=c++20 -Wall -Wextra
 -DDEBUG -g -O"
 \end{minted}
 
-
+\newpage
 
 \subsection{Stratagy}
 
@@ -215,7 +215,7 @@ where $\theta_1$ and $\theta_2$ are opposing corners and $x = (a + b + c + d)/2$
 \subsubsection{Area of a simple polygon}
 Given a simple polygon (no intersecting edges) with $n$ vertices $(x_0, y_0), (x_1, y_1), \dots, (x_n, y_n)$ where $(x_0, y_0) = (x_n, y_n)$. The area of the polygon is
 \begin{align*}
-    A = \frac12\sum_{k=0}^{n-1} (x_ky_{k+1} - x_{k+1}y_k).
+    A = \frac12\left|\sum_{k=0}^{n-1} (x_ky_{k+1} - x_{k+1}y_k)\right|.
 \end{align*}
 
 \subsubsection{Area of a regular polyhedron}
@@ -1203,7 +1203,7 @@ A cycle in a directed graph can be detected using DFS, in a similar way to topol
 
 
 \subsection{Strongly connected components $\mathcal O(V + E)$}
-A directed graph is strongly connected if there exists a path from every node to every other node (so not just in one direction). In an undirected graph, the connected components can be found with a DSU. In directed graphs, Kosaraju's algorithm can be used.
+A directed graph is strongly connected if there exists a path from every node to every other node (so not just in one direction). In an undirected graph, the connected components can be found with a DSU or BFS/DFS. In directed graphs, Kosaraju's algorithm can be used.
 \code{src/graph/kosaraju.cc}
 
 
@@ -1347,7 +1347,6 @@ Greedy algorithm to find some coloring of a graph, by iterating over the vertice
 
 
 \section{Search algorithms}
-
 The following are in the \texttt{C++} STL:
 \begin{itemize}
     \item \texttt{find(begin, end, val)}: Returns iterator to found element (linear search).
