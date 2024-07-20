@@ -6,34 +6,68 @@
 \usepackage{amsfonts}
 \usepackage{amsmath}
 \usepackage{amssymb}
-\usepackage{anyfontsize}
-\usepackage{bbm}
-\usepackage{blindtext}
+% \usepackage{anyfontsize}
+% \usepackage{bbm}
+% \usepackage{blindtext}
 \usepackage{datetime}
-\usepackage{enumitem}
+% \usepackage{enumitem}
 \usepackage{fancyhdr}
-\usepackage[a4paper, margin={1cm, 1.5cm}, headheight=0pt, headsep=10pt]{geometry}
+\usepackage{float}
 \usepackage{graphics}
 \usepackage{graphicx}
-\usepackage[utf8]{inputenc}
+% \usepackage[utf8]{inputenc}
+% \usepackage{lipsum}
+% \usepackage{makecell}
+% \usepackage{minted}
 \usepackage{lipsum}
-\usepackage{makecell}
-\usepackage{minted}
-\usepackage{multicol}
-\usepackage[skip=6pt]{parskip}
-\usepackage{setspace}
-\usepackage{tikz}
-\usetikzlibrary{patterns}
-\usepackage[explicit]{titlesec}
-\usepackage[dotinlabels]{titletoc}
+\usepackage[skip=3pt]{parskip}
+% \usepackage{setspace}
+% \usepackage{tikz}
+% \usetikzlibrary{patterns}
+% \usepackage[explicit]{titlesec}
+% \usepackage[dotinlabels]{titletoc}
 \usepackage{xcolor}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% Page layout and syling
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+% Paper margins
+\usepackage[
+    a4paper,
+    margin={1cm,1cm},
+    includehead,
+    headsep=0.6cm,
+    headheight=0.3cm,
+]{geometry}
+% Multiple columns
+\usepackage{multicol}
+% Headers and footers
+\pagestyle{fancy}
+\fancyhead{}
+\renewcommand{\headrulewidth}{1pt}
+\fancyhead[LE,LO]{\universityname\ --\ \doctitle}
+\usepackage{xpatch}
+\xpretocmd\headrule{\color{gray}}{}{\PatchFailed}
+\fancyhead[RE,RO]{Page \thepage/\pageref{LastPage}}
+\fancyfoot{}
+\lfoot{}
+\cfoot{}
+\rfoot{}
+% Different font
+% \usepackage{CrimsonPro}
+% \usepackage[T1]{fontenc}
+% \let\oldnormalfont\normalfont
+% \def\normalfont{\oldnormalfont\mdseries}
+% Custom colored sections
+\usepackage{latex_packages/custom_sections}
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 % Style options
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
-\allowdisplaybreaks
-\setlist{leftmargin=4.5mm,nosep}
+% \allowdisplaybreaks
+% \setlist{leftmargin=4.5mm,nosep}
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 % Custom commands
@@ -48,46 +82,37 @@
 % Custom title styles
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
-\titlespacing\section{0pt}{8pt}{4pt}
-\titlespacing\subsection{0pt}{8pt}{4pt}
-\titlespacing\subsubsection{0pt}{13pt}{2pt}
+% \titlespacing\section{0pt}{8pt}{4pt}
+% \titlespacing\subsection{0pt}{8pt}{4pt}
+% \titlespacing\subsubsection{0pt}{13pt}{2pt}
 
-\titleformat{\title}{\Huge\bfseries}{}{}{#1}
+% \titleformat{\title}{\Huge\bfseries}{}{}{#1}
 
-\titleformat{\section}{\normalfont}{}{0em}{\centering \colorbox{ForestGreen}{
-\begin{minipage}{\linewidth - 14pt}
-    \centering
-    \bfseries \textcolor{white}{\thesection. #1}
-\end{minipage}
-}}
+% \titleformat{\section}{\normalfont}{}{0em}{\centering \colorbox{ForestGreen}{
+% \begin{minipage}{\linewidth - 14pt}
+%     \centering
+%     \bfseries \textcolor{white}{\thesection. #1}
+% \end{minipage}
+% }}
 
-\titleformat{\subsection}{\normalfont}{}{0em}{\centering \colorbox{MidnightBlue}{
-\begin{minipage}{\linewidth - 14pt}
-    \centering
-    \bfseries \textcolor{white}{\thesubsection. #1}
-\end{minipage}
-}}
+% \titleformat{\subsection}{\normalfont}{}{0em}{\centering \colorbox{MidnightBlue}{
+% \begin{minipage}{\linewidth - 14pt}
+%     \centering
+%     \bfseries \textcolor{white}{\thesubsection. #1}
+% \end{minipage}
+% }}
 
-\titleformat{\subsubsection}{\normalfont}{}{0em}{\centering
-    \bfseries #1
-}
-
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-% Headers and footers
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-
-\setlength{\headheight}{15pt}
-\pagestyle{fancyplain}
-\lhead{\universityname\ --\ \doctitle}
-\chead{}
-\rhead{Page \thepage/\pageref{LastPage}}
-\lfoot{}
-\cfoot{}
-\rfoot{}
+% \titleformat{\subsubsection}{\normalfont}{}{0em}{\centering
+%     \bfseries #1
+% }
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 % Custom table of contents styles
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\usepackage{blindtext}
+\usepackage[explicit]{titlesec}
+\usepackage[dotinlabels]{titletoc}
 
 \titlecontents{section}
     [7mm]{\normalsize}{\contentslabel{5mm}}{}{\titlerule*[1pc]{}\contentsmargin{4mm}\contentspage}[]
@@ -99,6 +124,37 @@
 
 \begin{document}
 
+\setlength{\columnseprule}{1pt}
+\setlength{\columnsep}{0.8cm}
+\def\columnseprulecolor{\color{gray}}
+
+\begin{multicols}{2}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% Main title and logo
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\begin{center}
+    \,
+    \vspace{1pt}
+
+    {\bfseries \fontsize{19}{23}\selectfont \doctitle}
+    
+    \vspace{3pt}
+    
+    \textsl{\small \authorname \\ \teamname}
+
+    \vspace{8pt}
+
+    \begin{figure}[H]
+    \centering
+    \includegraphics[height=100pt]{logo.png}
+    \label{fig:logo}
+
+    \vspace{-30pt}
+\end{figure}
+\end{center}
+
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 % Compact margins
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%
@@ -109,57 +165,27 @@
 \setlength{\belowdisplayshortskip}{0pt}
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-% 2-column pages, with gray separator
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-
-\setlength{\columnseprule}{1pt}
-\setlength{\columnsep}{0.5cm}
-\def\columnseprulecolor{\color{gray}}
-
-\begin{multicols}{2}
-
-\addtocontents{toc}{\protect\setcounter{secnumdepth}{-5}}
-\addtocontents{toc}{\protect\setcounter{tocdepth}{-5}}
-{\hspace{1pt}}
-
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-% Main title and logo
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-
-\begin{center}
-
-    {\bfseries \fontsize{19}{23}\selectfont \doctitle}
-    
-    \vspace{0pt}
-    
-    \textsl{\small \authorname \\ \teamname}
-
-    \begin{figure}[H]
-    \centering
-    \includegraphics[height=100pt]{logo.png}
-    \label{fig:logo}
-\end{figure}
-\end{center}
-
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 % Table of contents
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
-\makeatletter
-\renewcommand\tableofcontents{
-    \@starttoc{toc}
-}
-\makeatother
-\addtocontents{toc}{\protect\setcounter{secnumdepth}{2}}
-\addtocontents{toc}{\protect\setcounter{tocdepth}{2}}
-\setcounter{tocdepth}{2}
-{\tableofcontents}
+\renewcommand\contentsname{}
+\tableofcontents
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-% Main content
+% Main document content
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
-\input{content.tex}
+\fancysection{Maroon}{Hello There}
+
+\lipsum[4-8]
+
+\fancysubsection{Maroon!70!White}{Another one}
+
+\lipsum[4-8]
+
+\fancysection{Green}{Test this}
+
+\lipsum[10-11]
 
 \end{multicols}
 

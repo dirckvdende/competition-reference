@@ -1,0 +1,29 @@
+
+\NeedsTeXFormat{LaTeX2e}
+
+\RequirePackage{tikz}
+\RequirePackage{float}
+
+% Use \fancysection{color}{section title}
+\newcommand{\fancysection}[2]{%
+    \refstepcounter{section}%
+    \addcontentsline{toc}{section}{\protect\numberline{\thesection}#2}%
+        \vspace{0.2cm}
+        \begin{center}
+            \begin{tikzpicture}
+                \node[fill=#1,text=white,anchor=east,minimum height=0.7cm,minimum width=0.7cm] at (-0.1, 0) {\textbf{\thesection}};
+                \node[fill=#1,text=white,anchor=west,minimum height=0.7cm,minimum width=\linewidth-0.8cm,align=left] at (0, 0) {\textbf{#2}};
+            \end{tikzpicture}
+        \end{center}
+    }
+
+\newcommand{\fancysubsection}[2]{%
+    \refstepcounter{subsection}%
+    \addcontentsline{toc}{subsection}{\protect\numberline{\thesubsection}#2}%
+        \begin{center}
+            \begin{tikzpicture}
+                \node[fill=#1,text=white,anchor=east,minimum height=0.7cm,minimum width=0.7cm] at (-0.1, 0) {\textbf{\thesubsection}};
+                \node[fill=#1,text=white,anchor=west,minimum height=0.7cm,minimum width=\linewidth-0.8cm,align=left] at (0, 0) {\textbf{#2}};
+            \end{tikzpicture}
+        \end{center}
+    }
