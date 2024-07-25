@@ -327,8 +327,8 @@ Given latitudes $\varphi_1, \varphi_2 \in [-\frac\pi2, \frac\pi2]$ and longitude
 \end{align*}
 The function $\text{atan2}$ is available in \texttt{C++} STL.
 
-\subsubsection{Diagonals of a polygon}
-The number of diagonals of an $n$-sided polygon is $\frac12n(n - 3)$.
+% \subsubsection{Diagonals of a polygon}
+% The number of diagonals of an $n$-sided polygon is $\frac12n(n - 3)$.
 
 \subsubsection{Weighted average of triangle vertices}
 Given a (proper) triangle in $2$-D space with vertices $v_1, v_2, v_3 \in \mathbb R^2$ and a point $p \in \mathbb R^2$ inside the triangle. The following calculates weights $w_1, w_2, w_3 \in [0, 1]$ such that $p = w_1v_1 + w_2v_2 + w_3v_3$ with $w_1 + w_2 + w_3 = 1$.
@@ -408,7 +408,7 @@ Multiplication of matrices $A \in \text{Mat}(n \times N)$ and $B \in \text{Mat}(
     (AB)_{ij} &= \sum_{k=1}^N A_{ik} B_{kj}
 \end{align*}
 so that $AB \in \text{Mat}(n \times m)$.
-\code{src/math/matmul.cc}
+% \code{src/math/matmul.cc}
 
 \subsubsection{Inverse of a matrix $\mathcal O(n^3)$}
 The inverse of a matrix can be determined with the formula
@@ -707,17 +707,17 @@ Given numbers $n$ and $m$, the following produces a list of all bit sequences of
 
 \subsection{Analysis and calculus}
 
-\subsubsection{Integral definition}
-For any piece-wise continuous $f$, the integral of $f$ on $[a, b]$ is defined as
-\begin{align*}
-    \int_a^b f(x)\ dx = \lim_{n \to \infty} \frac{b - a}n \sum_{k=0}^{n-1} f\left(a + k\frac{b - a}n\right).
-\end{align*}
+% \subsubsection{Integral definition}
+% For any piece-wise continuous $f$, the integral of $f$ on $[a, b]$ is defined as
+% \begin{align*}
+%     \int_a^b f(x)\ dx = \lim_{n \to \infty} \frac{b - a}n \sum_{k=0}^{n-1} f\left(a + k\frac{b - a}n\right).
+% \end{align*}
 
-\subsubsection{Derivative definition}
-Assuming the limit exists, the derivative of $f$ is defined as
-\begin{align*}
-    f'(x) = \lim_{h \to 0} \frac{f(x + h) - f(x)}h.
-\end{align*}
+% \subsubsection{Derivative definition}
+% Assuming the limit exists, the derivative of $f$ is defined as
+% \begin{align*}
+%     f'(x) = \lim_{h \to 0} \frac{f(x + h) - f(x)}h.
+% \end{align*}
 
 \subsubsection{L'Hôpital's rule}
 If $\lim_{x\to c} f(x) = \lim_{x \to c} g(x) = 0$ and the right limit exists, then
@@ -762,9 +762,6 @@ If $\lim_{x\to c} f(x) = \lim_{x \to c} g(x) = 0$ and the right limit exists, th
 \end{align*}
 
 \subsubsection{Common limits}
-\begin{align*}
-    \lim_{n\to\infty} \left(1 + \frac xn\right)^{n} = e^x
-\end{align*}
 \begin{align*}
     \lim_{x \to 0}\frac{a^x - 1}x = \log a
 \end{align*}
@@ -1210,10 +1207,12 @@ A directed graph is strongly connected if there exists a path from every node to
 \subsection{Eulerian cycles}
 
 \subsubsection{Existence in an undirected graph $\mathcal O(V + E)$}
-\code{src/graph/eulerundirected.cc}
+An undirected graph contains an Eulerian cycle if and only if it is connected and all vertices have even degrees.
+% \code{src/graph/eulerundirected.cc}
 
 \subsubsection{Existence in a directed graph $\mathcal O(V + E)$}
-\code{src/graph/eulerdirected.cc}
+An undirected graph contains an Eulerian cycle if and only if it is strongly connected and all vertices have an equal in and out-degree.
+% \code{src/graph/eulerdirected.cc}
 
 \subsubsection{Finding $\mathcal O(E\log E)$}
 An Eulerian cycle (if it exists) can be found by using Hierholzer's algorithm. This algorithm first generates some cycle from the starting vertex and then keeps adding cycles at the vertices in this cycle that have unused edges. If an Eulerian cycle exists, it is impossible to get stuck.
@@ -1221,18 +1220,27 @@ An Eulerian cycle (if it exists) can be found by using Hierholzer's algorithm. T
 
 
 
-\subsection{Max-flow $\mathcal O(E^2V)$}
+\subsection{Max-flow $\mathcal O(E^2V)$ / $\mathcal O(EV^2)$}
 
 The max-flow problem asks for the maximum flow through a directed network (graph) given the capacities of its edges. It can be thought of as a network of water pipes for example.
 
-The problem can be solved using the Edmonds-Karp variant of the Ford-Fulkerson algorithm.
-\code{src/graph/maxflow.cc}
+The problem can be solved using the Edmonds-Karp variant of the Ford-Fulkerson algorithm or Dinic's algorithm.
+
+\subsubsection{Edmonds-Karp algorithm $\mathcal O(E^2V)$}
+\code{src/graph/edmonds_karp.cc}
+
+\subsubsection{Dinic's algorithm $\mathcal O(EV^2)$}
+If the network is a unit network, meaning every node except $s$ and $t$ has either a unique incoming or a unique outgoing edge, and this unique edge has capacity $1$, then the complexity is reduced to $\mathcal O(E\sqrt V)$.
+\code{src/graph/dinic.cc}
+
+\subsubsection{Max-flow min-cut theorem}
+Given a network, the capacity of the minimum cut (which has one partition with $s$ and one with $t$) is the same as the maximum flow in the network.
 
 
 
-\subsection{Maximum bipartite matching $\mathcal O(V^3)$}
+\subsection{Maximum bipartite matching $\mathcal O(E\sqrt V)$}
 
-The maximum matching (maximum number of vertex pairs that have an edge between them) in a bipartite graph with parts $A$ and $B$ can be found using maximum flow, by setting all capacities to 1.
+The maximum matching (maximum number of vertex pairs that have an edge between them) in a bipartite graph with parts $A$ and $B$ can be found using Dinic's algorithm (see above), by setting all capacities to 1.
 \vspace{-0.2cm}
 \begin{figure}[H]
     \centering
@@ -1338,9 +1346,9 @@ where $\omega(G)$ is the size of the size of the largest clique (complete subgra
 A graph can be colored with 2 colors if it is bipartite. This can be found out using BFS.
 \code{src/graph/bipartite.cc}
 
-\subsubsection{Greedy coloring $\mathcal O(V + E)$}
-Greedy algorithm to find some coloring of a graph, by iterating over the vertices in some order and picking the first color that is different from the colors of its neighbours.
-\code{src/graph/greedycoloring.cc}
+% \subsubsection{Greedy coloring $\mathcal O(V + E)$}
+% Greedy algorithm to find some coloring of a graph, by iterating over the vertices in some order and picking the first color that is different from the colors of its neighbours.
+% \code{src/graph/greedycoloring.cc}
 
 
 
@@ -1432,9 +1440,9 @@ Given two strings, the edit distance is the minimum amount of operations needed 
 
 
 
-\subsection{Shortest prefix $\mathcal O(\sum_i P_i)$}
+% \subsection{Shortest prefix $\mathcal O(\sum_i P_i)$}
 
-\code{src/string/prefix.cc}
+% \code{src/string/prefix.cc}
 
 
 
@@ -1487,10 +1495,7 @@ To add a custom hash function for a vector to a built-in structure that uses has
 \subsection{Gray code}
 Gray code is a way of ordering binary numbers, such that two consecutive numbers differ in exactly one bit. Iterating over binary numbers in this way can be used for optimizations when using bitmasks.
 
-\subsubsection{Calculating gray code}
 \code{src/misc/gray.cc}
-
-\subsubsection{Inverse gray code}
 \code{src/misc/grayinv.cc}
 
 
