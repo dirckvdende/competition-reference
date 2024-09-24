@@ -9,7 +9,7 @@
 \usepackage{anyfontsize}
 \usepackage{bbm}
 \usepackage{blindtext}
-\usepackage{datetime}
+\usepackage{datetime2}
 \usepackage{enumitem}
 \usepackage{fancyhdr}
 \usepackage[a4paper, margin={1cm, 1.5cm}, headheight=0pt, headsep=10pt]{geometry}
@@ -76,11 +76,14 @@
 % Headers and footers
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
+\pgfmathsetseed{\number\pdfrandomseed}
+\pgfmathsetmacro{\RandomID}{random(100000000,999999999)}
+
 \setlength{\headheight}{15pt}
 \pagestyle{fancyplain}
 \lhead{\universityname\ --\ \doctitle}
 \chead{}
-\rhead{Page \thepage/\pageref{LastPage}}
+\rhead{DocID: \RandomID \qquad \qquad Page \thepage/\pageref{LastPage}}
 \lfoot{}
 \cfoot{}
 \rfoot{}
@@ -167,12 +170,16 @@
 % Extra info at the end
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
-{\color{gray}\centering
-
-This document was generated on \today, at \currenttime.
-
-If you find any errors/mistakes, or want to suggest an addition, please create a pull request on GitHub.
-
+{
+    \color{gray}
+    \setlength\topsep{0pt}
+    \setlength\parskip{0pt}
+    \begin{center}
+        This document was generated on \DTMtoday, at \DTMcurrenttime
+    \end{center}
+    \begin{center}
+        If you find any errors/mistakes, or want to suggest an addition, please create a pull request on GitHub.
+    \end{center}
 }
 
 % Used to show "Page x/y" at the top right
