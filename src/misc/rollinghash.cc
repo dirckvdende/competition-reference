@@ -1,49 +1,43 @@
-// This function can be used to keep track of the
-// rolling hash of a string. Only use this if most of
-// the strings to check for will not match!
+// Cached prime powers
+static vi ppow = {1};
+// This can be used to keep track of the rolling hash
+// of a string. Access the hash using H. If you want to
+// keep track of the contained string, use a deque
 struct RollingHash {
-    // ip is the inverse of p mod M
-    static const ll p = 1031, ip = 28802816,
-    M = 33554467;
-    // Keep track of hash, string and p^n mod M
-    ll H; deque<char> q; vi ppow;
-    RollingHash() : H(0), ppow({1}) { }
-    // Check equality of strings, first using hash and
-    // then using stored characters
-    bool operator==(const RollingHash &other) {
-        if (H != other.H)
-            return false;
-        if (sz(q) != sz(other.q))
-            return false;
-        auto itA = q.begin();
-        auto itB = other.q.begin();
-        for (; itA != q.end(); itA++, itB++)
-            if (*itA != *itB)
-                return false;
-        return true;
+    // ip is the inverse of p mod M. Different primes
+    // can be found earlier in the reference!
+    static const ll p = 8125343,
+    ip = 34789068517540942, M = 36028797018963971;
+    // Keep track of hash and string size
+    ll H, size;
+    RollingHash() : H(0), size(0) { }
+    // Update cached prime powers
+    void pup() {
+        while (size >= sz(ppow))
+            ppow.pb(modMul(ppow.back(), p, M));
     }
-    void pup() { ppow.pb(ppow.back() * p % M); }
+    void norm(ll &c) { c %= M; if (c < 0) c += M; }
     // Append to end of string
-    void push_back(char c) {
-        H += c * ppow.back(), H %= M;
-        pup(), q.push_back(c);
+    void push_back(ll c) {
+        norm(c);
+        H += modMul(c, ppow[size], M); norm(H);
+        size++; pup();
     }
     // Remove front end of string
-    void pop_back() {
-        ppow.pop_back();
-        H -= q.back() * ppow.back(), H %= M;
-        if (H < 0) H += M;
-        q.pop_back();
+    void pop_back(ll c) {
+        norm(c);
+        H -= modMul(c, ppow[size - 1], M); norm(H);
+        size--;
     }
     // Add to front of string
-    void push_front(char c) {
-        H = c + p * H, H %= M;
-        pup(), q.push_front(c);
+    void push_front(ll c) {
+        norm(c);
+        H = c + modMul(p, H, M); norm(H);
+        size++; pup();
     }
     // Remove from front of string
-    void pop_front() {
-        H = ip * (H - q.front()), H %= M;
-        if (H < 0) H += M;
-        ppow.pop_back(), q.pop_front();
+    void pop_front(ll c) {
+        H = modMul(ip, H - c, M);
+        size--;
     }
 };
