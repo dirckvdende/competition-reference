@@ -11,7 +11,7 @@ jobs:
         with:
           python-version: '3.12'
       - name: Install minted highlighting
-        run: apt-get install python3-pygments
+        run: sudo apt-get install python3-pygments
       - name: Compile LaTeX document
         uses: xu-cheng/latex-action@v3
         with:
