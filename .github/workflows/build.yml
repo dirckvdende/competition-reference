@@ -10,8 +10,8 @@ jobs:
         uses: actions/setup-python@v5
         with:
           python-version: '3.12'
-      - name: Install minted for Python
-        run: pip install latexminted
+      - name: Install minted highlighting
+        run: apt-get install python3-pygments
       - name: Compile LaTeX document
         uses: xu-cheng/latex-action@v3
         with:
