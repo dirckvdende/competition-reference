@@ -9,11 +9,12 @@ struct SegmentTree {
             nodes[n + i] = src[i];
         for (ll i = n - 1; i > 0; i--)
             nodes[i] = nodes[i << 1] +
-            nodes[i << 1 | 1];
+            nodes[i << 1 | 1]; // change op
     }
     void update(ll i, ll val) {
         nodes[i + n] = val, i += n;
         for (ll j = i; j > 1; j >>= 1)
+            // change op
             nodes[j >> 1] = nodes[j] + nodes[j ^ 1];
     }
     ll getSum(ll start, ll end) {
@@ -21,9 +22,9 @@ struct SegmentTree {
         for (start += n, end += n; start < end;
         start >>= 1, end >>= 1) {
             if (start & 1)
-                r += nodes[start++];
+                r += nodes[start++]; // change op
             if (end & 1)
-                r += nodes[--end];
+                r += nodes[--end]; // change op
         }
         return r;
     }
