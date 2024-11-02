@@ -1,27 +1,24 @@
 // Perform depth-first search on a directed graph,
 // marking nodes as visited on the way
-void dfs(ll i, vi &out, const vector<vii> &Gr,
-vi &done) {
-    done[i] = 1;
-    for (ii e : Gr[i])
-        if (!done[e.x])
-            dfs(e.x, out, Gr, done);
+void dfs(ll i, vi &out, const vvi &Gr,
+vector<bool> &done) {
+    done[i] = true;
+    // Visit ancestor nodes first
+    for (ll e : Gr[i]) if (!done[e])
+        dfs(e, out, Gr, done);
     out.pb(i);
 }
 
 // Finds a topological ordering on a graph G. This
 // function assumes that such an ordering exists!
-// Note that the lengths of the edges in G are not
-// used.
-vi toposort(const vector<vii> &G) {
+vi toposort(const vvi &G) {
     // Construct reverse graph
-    vector<vii> Gr(sz(G), vii{});
-    REP(i, sz(G))
-        for (ii e : G[i])
-            Gr[e.x].pb({i, e.y});
-    vi out, done(sz(G), 0);
-    REP(i, sz(G))
-        if (G[i].empty() && !done[i])
-            dfs(i, out, Gr, done);
+    vvi Gr(sz(G));
+    REP(i, sz(G)) for (ll e : G[i])
+        Gr[e].pb(i);
+    // Run DFS for each node without descendents
+    vi out; vector<bool> done(sz(G), false);
+    REP(i, sz(G)) if (G[i].empty() && !done[i])
+        dfs(i, out, Gr, done);
     return out;
 }
