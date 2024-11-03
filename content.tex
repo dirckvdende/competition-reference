@@ -12,58 +12,28 @@ alias gg="g++ -std=gnu++20 -x c++ -Wall -O2 -static
 {\color{gray}\texttt{(NWERC 2024)}}
 
 \newpage
-`'
-\subsection{Stratagy}
 
-\subsubsection{Solving checks}
+\subsection{Strategy}
+
+\subsubsection{Solving strategy}
 \begin{itemize}
-    \item Have very easy problems been solved?
-    \item Does everyone understand the question? Has everyone thought about it?
+    \item Go over all problems that haven't been solved.
     \item Small conditions $\rightarrow$ Brute force/less efficient algorithm.
     \item Do we need to take a break? Drink enough water!
-    \item No answer? Try greedy!
-    \item Check problem time limits.
-    \begin{itemize}
-        \item Try to solve problems with 1s run-time first.
-    \end{itemize}
     \item Should a solution be possible for \textit{all cases}? Think of special cases.
     \begin{itemize}
         \item Is it $<$ or $\leq$?
         \item Why would a special condition be given?
     \end{itemize}
-    \item Sketch on paper!
-    \begin{itemize}
-        \item Sketch a simple case on paper.
-        \item Draw a graph.
-    \end{itemize}
+    \item Sketch on paper.
     \item Did we read the problem correctly? Look at images on problem sheet.
-\end{itemize}
-
-\subsubsection{Error checks}
-\begin{itemize}
-    \item Check compiler flags! Did you run the compiler?
-    \item Check for edge conditions.
-    \item Check for very large numbers.
-    \item Check precision.
-    \item Check typos.
-    \item Off-by-one errors?
-    \item Use \texttt{DBG} when debugging!
-    \item Erase \texttt{DBG} when submitting, these cause a slowdown!
-    \item Check reverse input.
-    \item Are test cases randomized?
-    \item Does the problem require a lot of memory?
-    \item It there is a lot of IO: Use \texttt{cin.tie(NULL)} and flush output manually, don't use \texttt{endl}.
-    \item Can precision be influenced by transformation function? i.e. $\log$, $\exp$, etc.
-    \item Does output have to be given modulo $M$?
+    \item Use Python when working with very large numbers.
 \end{itemize}
 
 \subsubsection{Problem solving strategies}
 \begin{itemize}
     \item \textbf{Greedy}: Pick best looking on each step.
-    \item \textbf{Dynamic Programming}: Use a table to remember results.
-    \begin{itemize}
-        \item Optimize by finding relationship between results $\rightarrow$ transform maximum into sum.
-    \end{itemize}
+    \item \textbf{Dynamic Programming}: Use table to remember results.
     \item \textbf{Backtracking}: Check intermediate results.
     \item \textbf{Divide and conquer}: Split up into smaller problems.
     \item \textbf{BFS/DFS/floodfill}.
@@ -74,11 +44,45 @@ alias gg="g++ -std=gnu++20 -x c++ -Wall -O2 -static
         \item Don't make too many hash tables!
     \end{itemize}
     \item \textbf{Matrix form}: Gain more insight in how parts interact.
-    \item \textbf{Randomization}: Chance of failure needs to be small enough.
+    \item \textbf{Randomization}: Chance of failure is small enough.
     \item \textbf{Bitset}: Encode binary data. Useful for bitshifting.
-    \item Optimize for \textbf{cache misses}.
-    \item Use \textbf{geometry} for minimal calculations.
-    \item Use \textbf{generating functions} or store \textbf{polynomials} to model the problem.
+    \item Use \textbf{polynomials} to model the problem.
+    \item Consider the problem in \textbf{reverse}.
+\end{itemize}
+
+\subsubsection{Wrong answer}
+\begin{itemize}
+    \item Check boundary values: Minimum, maximum, powers of $2$.
+    \item Division by $0$ $\rightarrow$ NaN.
+    \item Off-by-one error?
+    \item Is it $<$ or $\leq$?
+    \item Input all $0$.
+    \item Integer overflow or NaN.
+    \item Can precision be influenced by transformation function? i.e. $\log$, $\exp$, etc.
+    \item Does output have to be given modulo $M$?
+\end{itemize}
+
+\subsubsection{Timelimit}
+\begin{itemize}
+    \item Make sum/minimum calculation efficient.
+    \item \texttt{DBG} statements can cause slowdowns.
+    \item Use fast IO and flush output manually.
+    \item Use hash tables or rolling hashes.
+    \item Don't create too many sets or queues.
+\end{itemize}
+
+\subsubsection{Run error}
+\begin{itemize}
+    \item Forgot to compile?
+    \item Check typos.
+    \item Division by $0$?
+    \item Accessing index $-1$ of vector?
+\end{itemize}
+
+\subsubsection{Memory limit}
+\begin{itemize}
+    \item Replace \texttt{long long} with \texttt{int}.
+    \item Reduce DP table dimensions.
 \end{itemize}
 
 
@@ -1540,46 +1544,37 @@ The subset sum problem is to determine if there is a subset $\tilde X$ of a mult
 \begin{itemize}
     \item What time do we need to wake up?
     \item Make sure to be on time for test session and competition!
-    \item Which snacks? Can we take snacks with us? Pepsels, Oreo, etc. ;)
-    \item Can we take a bottle of water with us?
+    \item Can we take snacks with use? Pepsels, Oreo's, etc. ;)
+    \item Remember to bring a bottle of water!
     \item Do we know the amount of problems there will be?
-    \item Discuss reading order/strategy amongst teammates.
-    \item Use own keyboard and mouse if allowed. May need to hand them in beforehand together with this document.
+    \item Discuss reading order/strategy.
+    \item Hand in reference document, keyboard and mouse at registration.
     \item How many copies of this document can we use?
-    \item Which IDE is used?
-    \begin{itemize}
-        \item Check useful shortcuts.
-    \end{itemize}
-    \item Which programming languages are supported?
-    \begin{itemize}
-        \item Use Python for large numbers.
-    \end{itemize}
+    \item Which IDE is used? Check useful shortcuts. VSCode?
+    \item Which languages are supported? C++? Python?
 \end{itemize}
 
 \subsubsection{Test session}
 \begin{itemize}
-    \item Which feedback is given on incorrect result?
+    \item Which feedback is given on incorrect result? Check for \textsf{no output}, \textsf{wrong answer}, \textsf{timelimit}, \textsf{runtime error}, \textsf{output limit}, \textsf{memory limit}, \textsf{compiler error}.
+    \item Check judging features:
     \begin{itemize}
-        \item Is run time error given?
-        \item Difference in time with more/less correct results?
-        \item Is \texttt{inline} enabled?
-        \item Are compile errors given? Are they shown in the web interface?
         \item Is \texttt{cerr} considered as output?
-    \end{itemize}
-    \item Which \texttt{C++} version is used?
-    \begin{itemize}
-        \item Optimization level?
-        \item Still correct when there are compiler warnings?
+        \item Difference in time with more/less correct results?
+        \item Still correct with compiler warnings?
         \item Still correct without \texttt{return 0;}?
         \item Still correct with \texttt{exit(0)}?
         \item Still correct with memory leaks?
     \end{itemize}
+    \item Which \texttt{C++} version is used? Optimization level?
 \end{itemize}
+
+\subsubsection{Pink elephant}
 
 \begin{center}
     \begin{figure}[H]
         \centering
-        \includegraphics[height=70pt]{pink_elephant.png}
+        \includegraphics[height=120pt]{pink_elephant.png}
         \label{fig:pink_elephant}
         \vspace{-3em}
     \end{figure}
