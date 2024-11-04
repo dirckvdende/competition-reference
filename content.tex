@@ -1192,15 +1192,14 @@ A topological ordering on a directed graph $G = (V, E)$ is an ordering $(v_1, \d
 
 
 
-\subsection{Cycle finding}
+\subsection{Cycle finding $\mathcal O(V + E)$}
 
-\subsubsection{Undirected graph $\mathcal O(V + E)$}
-An undirected graph contains a cycle if and only if $E + C > V$, where $C$ is the number of connected components. A DSU is used to count the number of connected components.
-\code{src/graph/undirectedcycle.cc}
+To check if an undirected graph has a cycle: Use a DSU to find number of connected components $C$ and check if $E + C > V$. To find the cycle, use DFS as below. For directed graphs, remove the marked if-statement below.
+\code{src/graph/findcycle.cc}
 
-\subsubsection{Directed Graph $\mathcal O(V + E)$}
-A cycle in a directed graph can be detected using DFS, in a similar way to topological sort. The implementation detects if there is a "back edge" in the DFS, which means that there is an edge to a node that is currently on the DFS stack.
-\code{src/graph/directedcycle.cc}
+% \subsubsection{Directed Graph $\mathcal O(V + E)$}
+% A cycle in a directed graph can be detected using DFS, in a similar way to topological sort. The implementation detects if there is a "back edge" in the DFS, which means that there is an edge to a node that is currently on the DFS stack.
+% \code{src/graph/directedcycle.cc}
 
 
 
