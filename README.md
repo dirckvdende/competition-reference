@@ -22,7 +22,7 @@ The reference document can be compiled from [main.tex](./main.tex) using PDFLate
 
 There is a [config.tex](./config.tex) file present where the group name, university name, etc. can be changed. The logo displayed on the front page can be changed by changing the [logo.png](./logo.png) file. If you want to change the actual content of the reference document, edit the [content.tex](./content.tex) file. The [main.tex](./main.tex) file contains package information, configurations, and the front page content.
 
-## Bugs and suggestions
+## Bugs and Suggestions
 
 For any bugs or suggestions, please create an issue or pull request on GitHub.
 
