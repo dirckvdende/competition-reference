@@ -1489,9 +1489,9 @@ C++ doesn't have hash functions for vectors and pairs, add them like this:
 
 
 
-\subsection{Parser}
+% \subsection{Parser}
 
-\code{src/misc/parser.cc}
+% \code{src/misc/parser.cc}
 
 
 
@@ -1531,6 +1531,34 @@ The subset sum problem is to determine if there is a subset $\tilde X$ of a mult
 \subsection{Longest increasing subsequence}
 
 \code{src/misc/longestincreasing.cc}
+
+
+
+\subsection{Approximate bounds}
+
+Below is a table of approximate upper bounds for $n$ given different algorithm complexities. Keep in mind that constants may also be high, but generally this is not important.
+
+\begin{table}[H]
+    \centering
+    \begin{tabular}{ll}
+        \hline
+        \textbf{Complexity} \hspace{2em} & \textbf{Bound} \\
+        \hline
+        $\mathcal O(n!)$ & $n \leq 10$ \\
+        $\mathcal O(2^n)$ & $n \leq 20$ \\
+        $\mathcal O(n^3)$ & $n \leq 500$ \\
+        $\mathcal O(n^2\log n)$ & $n \leq 10^3$ \\
+        $\mathcal O(n^2)$ & $n \leq 5\cdot 10^3$ \\
+        $\mathcal O(n\sqrt n)$ & $n \leq 10^5$ \\
+        $\mathcal O(n\log^2 n)$ & $n \leq 10^5$ \\
+        $\mathcal O(n\log n)$ & $n \leq 10^6$ \\
+        $\mathcal O(n)$ & $n \leq 10^8$ \\
+        $\mathcal O(\sqrt n)$ & $n \leq 10^{15}$ \\
+        $\mathcal O(\log n)$ & $n \leq 10^{18}$ \\
+        \hline
+    \end{tabular}
+    \label{tab:modinv}
+\end{table}
 
 
 
