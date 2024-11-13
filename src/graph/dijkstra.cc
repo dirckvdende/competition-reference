@@ -9,22 +9,21 @@
 pair<vi, vi> dijkstra(const vector<vii> &G, ll s) {
     vi dist(sz(G), LLONG_MAX), pr(sz(G), -1);
     dist[s] = 0;
-    // (Ordered) set so that the point with lowest
-    // distance will be handled first
-    set<ii> Q;
-    Q.insert({dist[s], s});
+    // Priority queue: Lowest distance first
+    set<ii> q; q.insert({dist[s], s});
     // While there are points not visited (or other
     // points are not reachable)
-    while (!Q.empty()) {
+    while (!q.empty()) {
         // Vertex with shortest distance
-        ll v = Q.begin()->y;
-        Q.erase(Q.begin());
+        ll v = q.begin()->y;
+        q.erase(q.begin());
         // Go over all connections from this point
         for (const ii &e : G[v])
+            // Distance calculation can be altered
             if (dist[v] + e.y < dist[e.x]) {
-                Q.erase({dist[e.x], e.x});
+                q.erase({dist[e.x], e.x});
                 dist[e.x] = dist[v] + e.y;
-                Q.insert({dist[e.x], e.x});
+                q.insert({dist[e.x], e.x});
                 pr[e.x] = v;
             }
     }
