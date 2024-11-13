@@ -1430,9 +1430,8 @@ This algorithm determines the position of a pattern $P = p_1p_2\dots p_m$ in a s
 
 \subsection{Aho-Corasick $\mathcal O(S + \sum_i P_i)$}
 
-Like KMP, it is used for finding patterns in strings. However, all patterns are processed in a batch, which is more cost-efficient than matching using KMP for every pattern.
+Like KMP, it is used for finding patterns in strings. However, all patterns are processed in a batch, which is more cost-efficient than matching using KMP for every pattern. It constructs an automaton on 3 steps: Construct a trie, add blue edges, and add green edges. The blue edges point to the longest strict suffix of the current word in the trie. The green edges point to the longest \textit{accepted} suffix in the tree (may not exist).
 
-The implementation uses an automaton with some accepting states that indicate one of the patterns has been matched. All patterns checked should be unique.
 \code{src/string/ahocorasick.cc}
 
 
