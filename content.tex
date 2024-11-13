@@ -1431,7 +1431,32 @@ This algorithm determines the position of a pattern $P = p_1p_2\dots p_m$ in a s
 \subsection{Aho-Corasick $\mathcal O(S + \sum_i P_i)$}
 
 Like KMP, it is used for finding patterns in strings. However, all patterns are processed in a batch, which is more cost-efficient than matching using KMP for every pattern. It constructs an automaton on 3 steps: Construct a trie, add blue edges, and add green edges. The blue edges point to the longest strict suffix of the current word in the trie. The green edges point to the longest \textit{accepted} suffix in the tree (may not exist).
-
+\vspace{-0.3cm}
+\begin{figure}[H]
+    \centering
+    \begin{tikzpicture}[main/.style = {draw, circle}, node distance=1cm]
+        \node[main] (0) {};
+        \node[main,double] (1) [right of=0] {};
+        \node[main] (2) [above right of=1] {};
+        \node[main] (3) [below right of=1] {};
+        \node[main,double] (4) [right of=2] {};
+        \node[main,double] (5) [right of=3] {};
+        \draw[->] (0) -- node[midway,above] {$a$} (1);
+        \draw[->] (1) -- node[midway,above left] {$a$} (2);
+        \draw[->] (1) -- node[midway,below left] {$b$} (3);
+        \draw[->] (2) -- node[midway,above] {$a$} (4);
+        \draw[->] (3) -- node[midway,above] {$a$} (5);
+        \draw[->,dashed,color=MidnightBlue,line width=1pt] (1) to[bend left] (0);
+        \draw[->,dashed,color=MidnightBlue,line width=1pt] (2) to[bend left] (1);
+        \draw[->,dashed,color=MidnightBlue,line width=1pt] (3) to[bend left] (0);
+        \draw[->,dashed,color=MidnightBlue,line width=1pt] (5) to[bend angle=15,bend right] (1);
+        \draw[->,dashed,color=MidnightBlue,line width=1pt] (4) to[bend left] (2);
+        \draw[->,color=ForestGreen,line width=1pt] (5) to[bend angle=100,bend left] (1);
+        \draw[->,color=ForestGreen,line width=1pt] (2) to[bend angle=20,bend right] (1);
+        \draw[->,color=ForestGreen,line width=1pt] (4) to[bend angle=100,bend right] (1);
+    \end{tikzpicture}
+\end{figure}
+\vspace{-0.3cm}
 \code{src/string/ahocorasick.cc}
 
 
