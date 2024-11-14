@@ -88,7 +88,6 @@ struct AhoCorasick {
                 cur = 0;
             else
                 cur = trie[cur][c];
-            DBG(cur);
             // NOTE: Option to return only longest
             // match per index
             #if ONLY_LONGEST_SUFFIX
