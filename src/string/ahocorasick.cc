@@ -82,7 +82,7 @@ struct AhoCorasick {
         REP(i, sz(s)) {
             ll c = ll(s[i]) - base;
             // Move to next node
-            if (cur > 0 && trie[cur][c] == -1)
+            while (cur > 0 && trie[cur][c] == -1)
                 cur = blue[cur];
             if (trie[cur][c] == -1)
                 cur = 0;
