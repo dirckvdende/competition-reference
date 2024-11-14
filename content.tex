@@ -1423,14 +1423,14 @@ In \texttt{C++} some built-in functions on strings are:
 
 \subsection{Knuth-Morris-Pratt $\mathcal O(S + P)$}
 
-This algorithm determines the position of a pattern $P = p_1p_2\dots p_m$ in a string $S = s_1s_2\dots, s_n$, where $n > m$. It does this by first preprocessing the pattern and then matching the string in constant time. In case there are multiple strings where the same pattern needs to be matched, the preprocessing step only has to be done once.
+This algorithm determines the position of a pattern $P = p_1p_2\dots p_m$ in a string $S = s_1s_2\dots s_n$, where $n > m$. It does this by first preprocessing the pattern and then matching the string in constant time. In case there are multiple strings where the same pattern needs to be matched, the preprocessing step only has to be done once.
 \code{src/string/kmp.cc}
 
 
 
-\subsection{Aho-Corasick $\mathcal O(S + \sum_i P_i)$}
+\subsection{Aho-Corasick $\mathcal O(\sum_i S_i + \sum_i P_i + M)$}
 
-Like KMP, it is used for finding patterns in strings. However, all patterns are processed in a batch, which is more cost-efficient than matching using KMP for every pattern. It constructs an automaton on 3 steps: Construct a trie, add blue edges, and add green edges. The blue edges point to the longest strict suffix of the current word in the trie. The green edges point to the longest \textit{accepted} suffix in the tree (may not exist).
+Like KMP, it is used for finding patterns in strings. However, all patterns are processed in a batch, which is more cost-efficient than matching using KMP for every pattern. It constructs an automaton on 3 steps: Construct a trie, add blue edges, and add green edges. The blue edges point to the longest strict suffix of the current word in the trie. The green edges point to the longest \textit{accepted} suffix in the tree (may not exist). The complexity is the sum of the total string length, total pattern length, and the number of matches. The number of matches can be removed from the complexity if only the longest suffix is returned for each index.
 \vspace{-0.3cm}
 \begin{figure}[H]
     \centering
