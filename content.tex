@@ -1514,8 +1514,8 @@ for some small prime $p$ and large prime $M$ (see "Useful numbers"). This then g
 \end{align*}
 \code{src/misc/rollinghash.cc}
 
-\subsubsection{Custom hash function}
-C++ doesn't have hash functions for vectors and pairs, add them like this:
+\subsubsection{Custom hash functions}
+C++ doesn't have hash functions for vectors and pairs. Reference implementations are added below. These are very slow though! For pairs with low integer values, use \texttt{h(p.x + p.y << 31)} as hash instead.
 \code{src/misc/hash.cc}
 
 
